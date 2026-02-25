@@ -13,6 +13,7 @@ class User(Base):
     password_hash = Column(String(255), nullable=False)
     points = Column(Integer, nullable=False, default=0)
     is_amulya = Column(Boolean, nullable=False, default=False)
+    is_admin = Column(Boolean, nullable=False, default=False)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
 
     redemptions = relationship("Redemption", back_populates="user")

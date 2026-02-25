@@ -4,6 +4,7 @@ from app.database import get_db
 from app.deps import get_current_user
 from app.models import User, Reward, Redemption
 from app.schemas import RewardOut, RedeemRequest, RedeemResponse, RedemptionOut, RedemptionHistoryItem
+from app.email_utils import send_redemption_email
 
 router = APIRouter(prefix="/rewards", tags=["rewards"])
 
@@ -76,6 +77,12 @@ def redeem_reward(
     db.commit()
     db.refresh(redemption)
     db.refresh(current_user)
+
+    if current_user.email:
+        try:
+            send_redemption_email(current_user.email)
+        except Exception:
+            pass  # Don't fail redemption if email sending fails
 
     return RedeemResponse(
         redemption=RedemptionOut(

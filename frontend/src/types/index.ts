@@ -4,7 +4,14 @@ export interface User {
   email: string | null;
   points: number;
   is_amulya: boolean;
+  is_admin: boolean;
   created_at: string;
+}
+
+export interface UserListItem {
+  id: number;
+  username: string;
+  points: number;
 }
 
 export interface Reward {

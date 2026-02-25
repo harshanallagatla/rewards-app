@@ -287,6 +287,23 @@ input { font-family: inherit; }
   text-transform: capitalize;
 }
 
+.add-points-btn {
+  background: none;
+  border: 1px solid rgba(255,255,255,0.35);
+  border-radius: 6px;
+  padding: 5px 12px;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: rgba(255,255,255,0.75);
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+}
+.add-points-btn:hover {
+  color: #fff;
+  border-color: rgba(255,255,255,0.7);
+  background: rgba(255,255,255,0.06);
+}
+
 .signout-btn {
   background: none;
   border: 1px solid rgba(255,255,255,0.18);

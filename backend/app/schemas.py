@@ -45,10 +45,31 @@ class UserOut(BaseModel):
     email: Optional[str]
     points: int
     is_amulya: bool
+    is_admin: bool
     created_at: datetime
 
     class Config:
         from_attributes = True
+
+
+class UserListItem(BaseModel):
+    id: int
+    username: str
+    points: int
+
+    class Config:
+        from_attributes = True
+
+
+class AddPointsRequest(BaseModel):
+    points: int
+
+    @field_validator("points")
+    @classmethod
+    def must_be_positive_multiple_of_10(cls, v: int) -> int:
+        if v == 0 or v % 10 != 0:
+            raise ValueError("Points must be a non-zero multiple of 10")
+        return v
 
 
 # Rewards

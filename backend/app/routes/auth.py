@@ -9,10 +9,11 @@ router = APIRouter(prefix="/auth", tags=["auth"])
 
 # Seed usernames that get special starting points and amulya flag
 SEED_USERS = {
-    "amulya": {"points": 2500, "is_amulya": True},
-    "alekhya": {"points": 500, "is_amulya": False},
-    "vineeth": {"points": 500, "is_amulya": False},
-    "chutki": {"points": 600, "is_amulya": False},
+    "amulya":   {"points": 2500, "is_amulya": True,  "is_admin": False},
+    "alekhya":  {"points": 500,  "is_amulya": False, "is_admin": False},
+    "vineeth":  {"points": 500,  "is_amulya": False, "is_admin": False},
+    "chutki":   {"points": 600,  "is_amulya": False, "is_admin": False},
+    "harsha":   {"points": 0,    "is_amulya": False, "is_admin": True},
 }
 
 
@@ -32,6 +33,7 @@ def register(body: RegisterRequest, db: Session = Depends(get_db)):
         password_hash=hash_password(body.password),
         points=seed.get("points", 0),
         is_amulya=seed.get("is_amulya", False),
+        is_admin=seed.get("is_admin", False),
     )
     db.add(user)
     db.commit()

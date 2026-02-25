@@ -3,6 +3,7 @@ import type { User, Reward } from '../types';
 import { api } from '../api/client';
 import TileCard from './TileCard';
 import HistoryPanel from './HistoryPanel';
+import AddPointsModal from './AddPointsModal';
 
 interface Props {
   user: User;
@@ -19,6 +20,7 @@ export default function RewardsApp({ user, onPointsUpdate, onSignOut }: Props) {
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [historyOpen, setHistoryOpen] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [addPointsOpen, setAddPointsOpen] = useState(false);
 
   const trackRef = useRef<HTMLDivElement>(null);
   const scrollTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -90,6 +92,11 @@ export default function RewardsApp({ user, onPointsUpdate, onSignOut }: Props) {
         <div className="top-left">
           <span className="username-chip">{user.username}</span>
           <span className="points-badge">{user.points.toLocaleString()} pts</span>
+          {user.is_admin && (
+            <button className="add-points-btn" onClick={() => setAddPointsOpen(true)}>
+              ADD POINTS
+            </button>
+          )}
         </div>
         <button className="history-btn" onClick={() => setHistoryOpen(true)}>HISTORY</button>
         <button className="signout-btn" onClick={onSignOut}>LOGOUT</button>
@@ -182,6 +189,9 @@ export default function RewardsApp({ user, onPointsUpdate, onSignOut }: Props) {
 
       {/* History panel */}
       {historyOpen && <HistoryPanel onClose={() => setHistoryOpen(false)} />}
+
+      {/* Add Points modal (admin only) */}
+      {addPointsOpen && <AddPointsModal onClose={() => setAddPointsOpen(false)} />}
     </div>
   );
 }

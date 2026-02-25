@@ -1,4 +1,4 @@
-import type { User, Reward, RedeemResponse, TokenResponse, RedemptionHistoryItem } from '../types';
+import type { User, Reward, RedeemResponse, TokenResponse, RedemptionHistoryItem, UserListItem } from '../types';
 
 const BASE = import.meta.env.VITE_API_URL ?? '/api';
 
@@ -59,5 +59,16 @@ export const api = {
 
   getHistory(): Promise<RedemptionHistoryItem[]> {
     return request('/rewards/history');
+  },
+
+  getUsers(): Promise<UserListItem[]> {
+    return request('/users');
+  },
+
+  addPoints(userId: number, points: number): Promise<UserListItem> {
+    return request(`/users/${userId}/add-points`, {
+      method: 'POST',
+      body: JSON.stringify({ points }),
+    });
   },
 };
