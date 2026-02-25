@@ -3,8 +3,10 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.database import engine
 from app import models
 from app.routes import auth, users, rewards
+from app.seed import seed
 
 models.Base.metadata.create_all(bind=engine)
+seed()
 
 app = FastAPI(title="Rewards API")
 
