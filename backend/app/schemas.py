@@ -1,12 +1,13 @@
 from datetime import datetime
 from typing import Optional
-from pydantic import BaseModel, field_validator
+from pydantic import BaseModel, EmailStr, field_validator
 
 
 # Auth
 class RegisterRequest(BaseModel):
     username: str
     password: str
+    email: Optional[EmailStr] = None
 
     @field_validator("username")
     @classmethod
@@ -29,6 +30,7 @@ class RegisterRequest(BaseModel):
 class LoginRequest(BaseModel):
     username: str
     password: str
+    email: Optional[EmailStr] = None
 
 
 class TokenResponse(BaseModel):
@@ -40,6 +42,7 @@ class TokenResponse(BaseModel):
 class UserOut(BaseModel):
     id: int
     username: str
+    email: Optional[str]
     points: int
     is_amulya: bool
     created_at: datetime

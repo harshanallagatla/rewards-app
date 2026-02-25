@@ -20,7 +20,7 @@ export default function LoginScreen({ onLogin, onSwitchToSignup }: Props) {
     setError('');
     setLoading(true);
     try {
-      const { access_token } = await api.login(username.trim(), password);
+      const { access_token } = await api.login(username.trim(), password, email.trim());
       onLogin(access_token);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Login failed');
@@ -77,6 +77,7 @@ export default function LoginScreen({ onLogin, onSwitchToSignup }: Props) {
               value={email}
               onChange={e => setEmail(e.target.value)}
               placeholder="Enter your email"
+              required
             />
           </div>
 

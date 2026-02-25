@@ -28,8 +28,9 @@ def register(body: RegisterRequest, db: Session = Depends(get_db)):
     seed = SEED_USERS.get(body.username.lower(), {})
     user = User(
         username=body.username,
+        email=body.email,
         password_hash=hash_password(body.password),
-        points=seed.get("points", 100),
+        points=seed.get("points", 0),
         is_amulya=seed.get("is_amulya", False),
     )
     db.add(user)
@@ -48,5 +49,8 @@ def login(body: LoginRequest, db: Session = Depends(get_db)):
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Invalid username or password",
         )
+    if body.email and user.email != body.email:
+        user.email = body.email
+        db.commit()
     token = create_access_token({"sub": str(user.id)})
     return TokenResponse(access_token=token)

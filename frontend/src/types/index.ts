@@ -1,6 +1,7 @@
 export interface User {
   id: number;
   username: string;
+  email: string | null;
   points: number;
   is_amulya: boolean;
   created_at: string;
