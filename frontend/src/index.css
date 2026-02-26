@@ -103,7 +103,7 @@ input { font-family: inherit; }
 
 .auth-screen > .app-brand {
   position: absolute;
-  top: calc(15vh - 3.5rem - 10px);
+  top: calc(22vh - 3.5rem - 10px);
   left: 50%;
   transform: translateX(-50%);
   white-space: nowrap;
