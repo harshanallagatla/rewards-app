@@ -5,7 +5,7 @@ import resend
 logger = logging.getLogger(__name__)
 
 
-def send_redemption_email(to_email: str) -> None:
+def send_redemption_email(to_email: str, username: str) -> None:
     api_key = os.getenv("RESEND_API_KEY")
     from_email = os.getenv("RESEND_FROM_EMAIL", "onboarding@resend.dev")
 
@@ -21,8 +21,8 @@ def send_redemption_email(to_email: str) -> None:
         resend.Emails.send({
             "from": f"Stardust Rewards <{from_email}>",
             "to": to_email,
-            "subject": "Your Redemption - Stardust Rewards",
-            "text": "Congrats on your redemption. You will be rewarded soon",
+            "subject": "Your Redemption",
+            "text": f"Congrats {username} on your redemption. You will be rewarded soon",
         })
         logger.info(f"Redemption email sent to {to_email}")
     except Exception as e:

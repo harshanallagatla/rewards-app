@@ -80,7 +80,7 @@ def redeem_reward(
     db.refresh(current_user)
 
     if current_user.email:
-        background_tasks.add_task(send_redemption_email, current_user.email)
+        background_tasks.add_task(send_redemption_email, current_user.email, current_user.username)
 
     return RedeemResponse(
         redemption=RedemptionOut(
