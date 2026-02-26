@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from app.database import get_db
 from app.deps import get_current_user
@@ -49,6 +49,7 @@ def list_rewards(
 def redeem_reward(
     reward_id: int,
     body: RedeemRequest,
+    background_tasks: BackgroundTasks,
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user),
 ):
@@ -79,10 +80,7 @@ def redeem_reward(
     db.refresh(current_user)
 
     if current_user.email:
-        try:
-            send_redemption_email(current_user.email)
-        except Exception:
-            pass  # Redemption succeeds even if email fails; error is logged in email_utils
+        background_tasks.add_task(send_redemption_email, current_user.email)
 
     return RedeemResponse(
         redemption=RedemptionOut(
