@@ -9,6 +9,7 @@ interface Props {
 
 export default function SignupScreen({ onLogin, onSwitchToLogin }: Props) {
   const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirm, setConfirm] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -25,7 +26,7 @@ export default function SignupScreen({ onLogin, onSwitchToLogin }: Props) {
     }
     setLoading(true);
     try {
-      const { access_token } = await api.register(username.trim(), password);
+      const { access_token } = await api.register(username.trim(), password, email.trim());
       onLogin(access_token);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Registration failed');
@@ -98,6 +99,18 @@ export default function SignupScreen({ onLogin, onSwitchToLogin }: Props) {
                 {showConfirm ? <EyeOff /> : <Eye />}
               </button>
             </div>
+          </div>
+
+          <div className="auth-field">
+            <label className="auth-field-label">EMAIL</label>
+            <input
+              className="auth-input"
+              type="email"
+              value={email}
+              onChange={e => setEmail(e.target.value)}
+              placeholder="Enter your email"
+              required
+            />
           </div>
 
           {error && <p className="auth-error">{error}</p>}

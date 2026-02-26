@@ -601,6 +601,54 @@ input { font-family: inherit; }
   to   { opacity: 1; transform: translateX(-50%) translateY(0); }
 }
 
+/* ---- Email Confirmation Popup ---- */
+.email-popup {
+  position: fixed;
+  bottom: 90px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, #1c1c20, #25252c);
+  border: 1px solid rgba(255, 245, 180, 0.25);
+  border-radius: 16px;
+  padding: 18px 28px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  z-index: 201;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.45), 0 0 0 1px rgba(255,245,180,0.08);
+  animation: emailPopupIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  white-space: nowrap;
+}
+
+.email-popup-icon {
+  font-size: 2rem;
+  animation: emailIconBounce 0.6s ease 0.1s both;
+}
+
+.email-popup-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: rgba(255, 245, 180, 0.95);
+  letter-spacing: 0.02em;
+  margin-bottom: 2px;
+}
+
+.email-popup-sub {
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.45);
+}
+
+@keyframes emailPopupIn {
+  from { opacity: 0; transform: translateX(-50%) translateY(20px) scale(0.92); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0)     scale(1);    }
+}
+
+@keyframes emailIconBounce {
+  0%   { transform: scale(0.5) rotate(-15deg); opacity: 0; }
+  60%  { transform: scale(1.2) rotate(5deg);  opacity: 1; }
+  100% { transform: scale(1)   rotate(0deg);  opacity: 1; }
+}
+
 /* ---- History Button ---- */
 .history-btn {
   background: none;

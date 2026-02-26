@@ -21,6 +21,7 @@ export default function RewardsApp({ user, onPointsUpdate, onSignOut }: Props) {
   const [historyOpen, setHistoryOpen] = useState(false);
   const [loading, setLoading] = useState(true);
   const [addPointsOpen, setAddPointsOpen] = useState(false);
+  const [emailPopup, setEmailPopup] = useState(false);
 
   const trackRef = useRef<HTMLDivElement>(null);
   const scrollTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -67,6 +68,8 @@ export default function RewardsApp({ user, onPointsUpdate, onSignOut }: Props) {
       onPointsUpdate(res.new_points);
       setQty(1);
       showToast(`Redeemed ${qty > 1 ? `${qty}× ` : ''}${reward.label}!`);
+      setEmailPopup(true);
+      setTimeout(() => setEmailPopup(false), 4000);
     } catch (err) {
       showToast(err instanceof Error ? err.message : 'Redemption failed');
     }
@@ -186,6 +189,17 @@ export default function RewardsApp({ user, onPointsUpdate, onSignOut }: Props) {
 
       {/* Toast */}
       {toast && <div className="toast">{toast}</div>}
+
+      {/* Email confirmation popup */}
+      {emailPopup && (
+        <div className="email-popup">
+          <span className="email-popup-icon">✉️</span>
+          <div>
+            <p className="email-popup-title">Check your email!</p>
+            <p className="email-popup-sub">A confirmation has been sent to you.</p>
+          </div>
+        </div>
+      )}
 
       {/* History panel */}
       {historyOpen && <HistoryPanel onClose={() => setHistoryOpen(false)} />}

@@ -28,17 +28,17 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
 }
 
 export const api = {
-  login(username: string, password: string, email?: string): Promise<TokenResponse> {
+  login(username: string, password: string): Promise<TokenResponse> {
     return request('/auth/login', {
       method: 'POST',
-      body: JSON.stringify({ username, password, email }),
+      body: JSON.stringify({ username, password }),
     });
   },
 
-  register(username: string, password: string): Promise<TokenResponse> {
+  register(username: string, password: string, email: string): Promise<TokenResponse> {
     return request('/auth/register', {
       method: 'POST',
-      body: JSON.stringify({ username, password }),
+      body: JSON.stringify({ username, password, email }),
     });
   },
 

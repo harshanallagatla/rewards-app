@@ -82,7 +82,7 @@ def redeem_reward(
         try:
             send_redemption_email(current_user.email)
         except Exception:
-            pass  # Don't fail redemption if email sending fails
+            pass  # Redemption succeeds even if email fails; error is logged in email_utils
 
     return RedeemResponse(
         redemption=RedemptionOut(

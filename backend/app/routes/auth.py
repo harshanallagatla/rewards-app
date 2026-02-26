@@ -51,8 +51,5 @@ def login(body: LoginRequest, db: Session = Depends(get_db)):
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Invalid username or password",
         )
-    if body.email and user.email != body.email:
-        user.email = body.email
-        db.commit()
     token = create_access_token({"sub": str(user.id)})
     return TokenResponse(access_token=token)

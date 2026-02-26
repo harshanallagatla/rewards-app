@@ -30,7 +30,6 @@ class RegisterRequest(BaseModel):
 class LoginRequest(BaseModel):
     username: str
     password: str
-    email: Optional[EmailStr] = None
 
 
 class TokenResponse(BaseModel):
