@@ -778,8 +778,13 @@ input { font-family: inherit; }
 }
 
 @media (max-width: 600px) {
-  /* Base */
-  body { padding: 0; align-items: flex-start; }
+  /* Base — switch off flex centering so .app fills the viewport naturally */
+  body {
+    display: block;
+    padding: 0;
+    width: 100%;
+    overflow-x: hidden;
+  }
 
   /* Auth screens — stack title above card naturally */
   .auth-screen {
