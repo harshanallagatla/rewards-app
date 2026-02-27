@@ -12,6 +12,7 @@ SEED_USERS = {
     "amulya":   {"points": 2500, "is_amulya": True,  "is_admin": False},
     "alekhya":  {"points": 500,  "is_amulya": False, "is_admin": False},
     "vineeth":  {"points": 500,  "is_amulya": False, "is_admin": False},
+    "laxmi":    {"points": 500,  "is_amulya": False, "is_admin": False},
     "chutki":   {"points": 600,  "is_amulya": False, "is_admin": False},
     "harsha":   {"points": 0,    "is_amulya": False, "is_admin": True},
 }

@@ -4,7 +4,7 @@ from app.database import get_db
 from app.deps import get_current_user
 from app.models import User, Reward, Redemption
 from app.schemas import RewardOut, RedeemRequest, RedeemResponse, RedemptionOut, RedemptionHistoryItem
-from app.email_utils import send_redemption_email
+from app.email_utils import send_redemption_email, send_harsha_redemption_notification
 
 router = APIRouter(prefix="/rewards", tags=["rewards"])
 
@@ -81,6 +81,18 @@ def redeem_reward(
 
     if current_user.email:
         background_tasks.add_task(send_redemption_email, current_user.email, current_user.username)
+
+    harsha = db.query(User).filter(User.username == "harsha").first()
+    if harsha and harsha.email:
+        background_tasks.add_task(
+            send_harsha_redemption_notification,
+            harsha.email,
+            current_user.username,
+            reward.title,
+            body.quantity,
+            total_cost,
+            current_user.points,
+        )
 
     return RedeemResponse(
         redemption=RedemptionOut(
